@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Airline Manage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="header :: header"></div>
+<div class="container mt-3 mb-3">
+    <div class="row justify-content-center">
+        <div class="col-8 border border overflow-y-scroll" style="background-color: lavender; height: 800px;">
+            <div class="row mt-3 border-bottom border-dark">
+                <div class="col text-start">
+                    <h5 th:text="${airline.name}"></h5>
+                </div>
+                <div class="col text-end">
+                    <a th:href="@{/airline/manage/edit-info(paramName = 'name')}" th:text="Edit"></a>
+                </div>
+            </div>
+            <div class="row mt-3 border-bottom border-dark">
+                <div class="col text-start">
+                    <h5 th:text="${airline.phone}"></h5>
+                </div>
+                <div class="col text-end">
+                    <a th:href="@{/airline/manage/edit-info(paramName = 'phone')}" th:text="Edit"></a>
+                </div>
+            </div>
+            <div class="row mt-3 border-bottom border-dark">
+                <div class="col text-start">
+                    <label for="Description" class="preview-label"><h5>Description</h5></label>
+                    <p id="Description" th:text="${airline.description}" style="white-space: pre-line"></p>
+                </div>
+                <div class="col text-end">
+                    <a th:if="${airline.description == null}" th:href="@{/airline/manage/edit-info(paramName = 'description')}"
+                       th:text="Add"></a>
+                    <a th:unless="*{airline.description == null}"
+                       th:href="@{/airline/manage/edit-info(paramName = 'description')}"
+                       th:text="Edit"></a>
+                </div>
+            </div>
+            <div class="row mt-3 border-bottom border-dark">
+                <div class="col text-start">
+                    <label for="BaggageInfo" class="preview-label"><h5>Baggage info</h5></label>
+                    <p id="BaggageInfo" th:text="${airline.baggageInfo}" style="white-space: pre-line"></p>
+                </div>
+                <div class="col text-end">
+                    <a th:if="*{airline.baggageInfo == null}"
+                       th:href="@{/airline/manage/edit-info(paramName = 'baggageInfo')}"
+                       th:text="Add"></a>
+                    <a th:unless="*{airline.baggageInfo == null}"
+                       th:href="@{/airline/manage/edit-info(paramName = 'baggageInfo')}"
+                       th:text="Edit"></a>
+                </div>
+            </div>
+            <div class="row mt-3 border-bottom border-dark">
+                <div class="col text-start">
+                    <label for="ChildrenInfo" class="preview-label"><h5>Children info</h5></label>
+                    <p id="ChildrenInfo" th:text="${airline.childInfo}" style="white-space: pre-line"></p>
+                </div>
+                <div class="col text-end">
+                    <a th:if="*{airline.childInfo == null}" th:href="@{/airline/manage/edit-info(paramName = 'childInfo')}"
+                       th:text="Add"></a>
+                    <a th:unless="*{airline.childInfo == null}" th:href="@{/airline/manage/edit-info(paramName = 'childInfo')}"
+                       th:text="Edit"></a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col text-start">
+                    <h5 th:text="${airline.officeAddress.zip + ', ' +  airline.officeAddress.country + ' ' + airline.officeAddress.state + ', ' + airline.officeAddress.city + ' ' + airline.officeAddress.street + ' ' + airline.officeAddress.building}"></h5>
+                </div>
+                <div class="col text-end">
+                    <a th:href="@{/airline/manage/edit-info(paramName = 'address')}" th:text="Edit"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+</body>
+</html>

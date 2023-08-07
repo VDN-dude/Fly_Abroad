@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fly Abroad</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="header :: header"></div>
+<div class="navbar navbar-expand-lg justify-content-center position-sticky" style="background-color: lightskyblue">
+    <div class="row justify-content-center" style="background-color: lightskyblue">
+        <form method="post" th:action="@{/search}" th:object="${searchFlight}">
+            <div class="row mt-1 mb-3 g-3">
+                <div class="col">
+                    <input type="text" th:field="*{fromCity}" class="form-control" placeholder="From">
+                    <p th:if="${#fields.hasErrors('fromCity')}" th:errors="*{fromCity}" class="alert alert-danger" role="alert"></p>
+                </div>
+                <div class="col">
+                    <input type="text" th:field="*{toCity}" class="form-control" placeholder="To">
+                    <p th:if="${#fields.hasErrors('toCity')}" th:errors="*{toCity}" class="alert alert-danger" role="alert"></p>
+                </div>
+                <div class="col">
+                    <input type="date" th:field="*{departureDay}" class="form-control" placeholder="Departure day">
+                </div>
+                <div class="col">
+                    <input type="number" th:field="*{ticketQuantity}" th:min="1" class="form-control" placeholder="Tickets">
+                </div>
+                <div class="col">
+                    <input type="submit" class="form-control border-0" th:value="Search" style="background-color: pink">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container mb-3">
+    <div class="row justify-content-center mt-2">
+        <div class="col-8 border border overflow-y-scroll" style="background-color: lavender; height: 800px;">
+            <div th:each="searchedFlight : ${pageableFlights.flights}" class="row mt-3 border-bottom border-dark">
+                <p th:text="${'Airline : ' + searchedFlight.airline.name}"></p>
+                <div class="col-sm-5 text-start align-self-center">
+                    <p th:text="${searchedFlight.from.name + ' -> ' + searchedFlight.to.name}"></p>
+                    <p th:text="${searchedFlight.from.address.country + ', ' + searchedFlight.from.address.city + ' -> ' + searchedFlight.to.address.country + ', ' + searchedFlight.to.address.city}"></p>
+                </div>
+                <div class="col-sm-5 text-start">
+                    <p th:text="${'Departure : ' + searchedFlight.departure}"></p>
+                    <p th:text="${'Arrival : ' + searchedFlight.arrival}"></p>
+                    <p th:text="${'Duration : ' + searchedFlight.duration.toMinutes() + 'm.'}"></p>
+                </div>
+                <div class="col-md-1 text-end align-self-center">
+                    <a th:href="@{/book-ticket(id = ${searchedFlight.id})}" style="text-decoration: none">
+                        <input type="submit" class="border-0 rounded-2" th:value="'Book'" style="background-color: pink">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${pageableFlights.flights != null}" class="container">
+        <div class="row">
+            <ul class="pagination justify-content-center">
+                <th:block>
+                    <li th:if="${pageableFlights.page == 1}" class="page-item">
+                        <a class="page-link disabled" th:href="@{/search(page = 1)}"
+                           aria-label="First">
+                            <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+                    <li th:unless="${pageableFlights.page == 1}" class="page-item">
+                        <a class="page-link" th:href="@{/searcg(page = 1)}"
+                           aria-label="First">
+                            <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+                </th:block>
+                <th:block>
+                    <li th:if="${pageableFlights.page == 1}" class="page-item disable">
+                        <a class="page-link disabled" th:href="@{/search(page = ${pageableFlights.page - 1})}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:unless="${pageableFlights.page == 1}" class="page-item">
+                        <a class="page-link" th:href="@{/search(page = ${pageableFlights.page - 1})}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                </th:block>
+                <th:block th:if="${pageableFlights.countOfPages > 1}">
+                    <div class="btn-group">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false" th:text="${pageableFlights.page}">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <th:block th:each="pageNumber : ${pageableFlights.countOfPages.toString().toCharArray()}">
+                                <li><a class="dropdown-item"
+                                       th:href="@{/search(page = ${pageNumber})}"
+                                       th:text="${pageNumber}"></a>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </div>
+                </th:block>
+                <th:block>
+                    <li th:if="${pageableFlights.page == pageableFlights.countOfPages}" class="page-item">
+                        <a class="page-link disabled" th:href="@{/search(page = ${pageableFlights.page + 1})}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li th:unless="${pageableFlights.page == pageableFlights.countOfPages}" class="page-item">
+                        <a class="page-link" th:href="@{/search(page = ${pageableFlights.page + 1})}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </th:block>
+                <th:block>
+                    <li th:if="${pageableFlights.page == pageableFlights.countOfPages}" class="page-item">
+                        <a class="page-link disabled" th:href="@{/search(page = ${pageableFlights.countOfPages})}"
+                           aria-label="Last">
+                            <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
+                    <li th:unless="${pageableFlights.page == pageableFlights.countOfPages}" class="page-item">
+                        <a class="page-link" th:href="@{/search(page = ${pageableFlights.countOfPages})}"
+                           aria-label="Last">
+                            <span aria-hidden="true">Last</span>
+                        </a>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>

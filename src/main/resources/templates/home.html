@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fly Abroad</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="header :: header"></div>
+<div class="navbar navbar-expand-lg justify-content-center position-sticky" style="background-color: lightskyblue">
+</div>
+<div class="container mt-3 mb-3">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="row justify-content-center text-center">
+                <a class="col-4 border border-secondary rounded-5 text-center align-self-center" th:href="@{/search}" style="text-decoration: none">
+                    <h3 th:text="'Start your travel here'"></h3>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-8 text-start align-self-center">
+            <h3 th:text="'The most popular ways'"></h3>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-8 border border" style="background-color: lavender">
+            <div class="row">
+                <div th:each="airport : ${topAirports}" class="col border border-dark text-center align-self-center">
+                    <a th:href="@{/search(city = ${airport.address.city})}" style="text-decoration: none">
+                        <h4 th:text="${airport.address.city}"></h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>

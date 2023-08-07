@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fly Abroad</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="header :: header"></div>
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <p th:text="${user.firstName + ' ' + user.lastName}"></p>
+        <p th:text="${user.email}"></p>
+        <p th:text="${user.phone}"></p>
+        <div th:if="${pageableBookedTickets != null}" class="container">
+            <div th:each="bookedTicket : ${pageableBookedTickets.bookedTickets}">
+                <div class="row gap-0">
+                    <div class="col-sm-2 text-start align-self-center">
+                        <p th:text="${bookedTicket.ticket.flight.airline.name}"></p>
+                    </div>
+                    <div class="col text-center align-self-center">
+                        <p th:text="${bookedTicket.ticket.flight.from.name + ' -> ' + bookedTicket.ticket.flight.to.name}"></p>
+                        <p th:text="${bookedTicket.ticket.flight.from.address.country + ', ' + bookedTicket.ticket.flight.from.address.city + ' -> ' + bookedTicket.ticket.flight.to.address.country + ', ' + bookedTicket.ticket.flight.to.address.city}"></p>
+                    </div>
+                    <div class="col text-center align-self-center">
+                        <p th:text="${'Departure : ' + bookedTicket.ticket.flight.departure}"></p>
+                        <p th:text="${'Arrival : ' + bookedTicket.ticket.flight.arrival}"></p>
+                        <p th:text="${'Duration : ' + bookedTicket.ticket.flight.duration.toMinutes() + 'm.'}"></p>
+                    </div>
+                    <div class="col text-end align-self-center">
+                        <p th:text="${'Class : ' + bookedTicket.ticket.ticketClass}"></p>
+                        <p th:text="${'Quantity : ' + bookedTicket.quantity}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <ul class="pagination justify-content-center">
+                        <th:block>
+                            <li th:if="${pageableBookedTickets.page == 1}" class="page-item">
+                                <a class="page-link disabled" th:href="@{/user/profile(page = 1)}"
+                                   aria-label="First">
+                                    <span aria-hidden="true">First</span>
+                                </a>
+                            </li>
+                            <li th:unless="${pageableBookedTickets.page == 1}" class="page-item">
+                                <a class="page-link" th:href="@{/user/profile(page = 1)}"
+                                   aria-label="First">
+                                    <span aria-hidden="true">First</span>
+                                </a>
+                            </li>
+                        </th:block>
+                        <th:block>
+                            <li th:if="${pageableBookedTickets.page == 1}" class="page-item disable">
+                                <a class="page-link disabled"
+                                   th:href="@{/user/profile(page = ${pageableBookedTickets.page - 1})}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li th:unless="${pageableBookedTickets.page == 1}" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/user/profile(page = ${pageableBookedTickets.page - 1})}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        </th:block>
+                        <th:block th:if="${pageableBookedTickets.countOfPages > 1}">
+                            <div class="btn-group">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                        th:text="${pageableBookedTickets.page}">
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <th:block
+                                            th:each="pageNumber : ${pageableBookedTickets.countOfPages.toString().toCharArray()}">
+                                        <li><a class="dropdown-item"
+                                               th:href="@{/user/profile(page = ${pageNumber})}"
+                                               th:text="${pageNumber}"></a>
+                                        </li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </th:block>
+                        <th:block>
+                            <li th:if="${pageableBookedTickets.page == pageableBookedTickets.countOfPages}"
+                                class="page-item">
+                                <a class="page-link disabled"
+                                   th:href="@{/user/profile(page = ${pageableBookedTickets.page + 1})}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li th:unless="${pageableBookedTickets.page == pageableBookedTickets.countOfPages}"
+                                class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/user/profile(page = ${pageableBookedTickets.page + 1})}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </th:block>
+                        <th:block>
+                            <li th:if="${pageableBookedTickets.page == pageableBookedTickets.countOfPages}"
+                                class="page-item">
+                                <a class="page-link disabled"
+                                   th:href="@{/user/profile(page = ${pageableBookedTickets.countOfPages})}"
+                                   aria-label="Last">
+                                    <span aria-hidden="true">Last</span>
+                                </a>
+                            </li>
+                            <li th:unless="${pageableBookedTickets.page == pageableBookedTickets.countOfPages}"
+                                class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/user/profile(page = ${pageableBookedTickets.countOfPages})}"
+                                   aria-label="Last">
+                                    <span aria-hidden="true">Last</span>
+                                </a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>

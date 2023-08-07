@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fly Abroad</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="header :: header"></div>
+<div class="container mb-3">
+    <div class="row justify-content-center mt-2">
+        <div class="col-8" style="background-color: lavender">
+            <div class="row mt-3 text-end border-bottom border-dark">
+                <p th:text="${'Airline : ' + flight.airline.name}"></p>
+                <div class="col-sm-5 text-start align-self-center">
+                    <p th:text="${flight.from.name + ' -> ' + flight.to.name}"></p>
+                    <p th:text="${flight.from.address.country + ', ' + flight.from.address.city + ' -> ' + flight.to.address.country + ', ' + flight.to.address.city}"></p>
+                </div>
+                <div class="col-sm-5 text-start">
+                    <p th:text="${'Departure : ' + flight.departure}"></p>
+                    <p th:text="${'Arrival : ' + flight.arrival}"></p>
+                </div>
+                <div class="col-sm-2 align-self-center">
+                    <p th:text="${'Duration : ' + flight.duration.toMinutes() + 'm.'}"></p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div th:each="ticket : ${flight.tickets}" class="col">
+                    <p th:text="${ticket.ticketClass}"></p>
+                    <p th:text="${'Remaining tickets : ' + ticket.unbookedQuantity}"></p>
+                    <p th:text="${ticket.price}"></p>
+                </div>
+            </div>
+            <form method="post" th:action="@{/book-ticket(id = ${flight.id})}" th:object="${bookTickets}">
+                <div class="row mb-3">
+                    <input type="hidden" th:field="*{flightId}" class="form-control">
+                    <div class="col">
+                        <label for="TicketClass" class="form-label" th:text="'Ticket Class'"></label>
+                        <select th:field="*{ticketClass}" class="form-select" id="TicketClass" required>
+                            <option th:each="ticket : ${flight.tickets}" th:value="${ticket.ticketClass}"
+                                    th:text="${ticket.ticketClass}"></option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="Quantity" class="form-label" th:text="'Quantity'"></label>
+                        <input type="number" th:field="*{quantity}" th:min="1" class="form-control" id="Quantity"
+                               required>
+                    </div>
+                </div>
+                <div class="text-end mb-3">
+                    <button class="btn btn-dark align-self-center" type="submit" th:text="'Book'"></button>
+                </div>
+            </form>
+            <p th:if="${bookTicketError != null}" th:text="${bookTicketError}" class="alert alert-danger" role="alert"></p>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>
