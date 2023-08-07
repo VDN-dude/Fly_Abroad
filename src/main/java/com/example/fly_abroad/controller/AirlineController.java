@@ -100,9 +100,7 @@ public class AirlineController {
         Optional<Airline> byUser = airlineService.findByUser(user);
         if (byUser.isPresent()){
             PageableFlights pageableFlights = flightService.findByAirlineName(byUser.get().getName(), page-1, size);
-            model.addAttribute("page", page);
-            model.addAttribute("countOfPages", pageableFlights.getCountOfPages());
-            model.addAttribute("flights", pageableFlights.getFlights());
+            model.addAttribute("pageableFlights", pageableFlights);
             return "airline-manage-flights";
         }
 
