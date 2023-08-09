@@ -13,7 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     private static final String LOGIN_ENDPOINT = "/user/login";
-    private static final String[] REG_ENDPOINTS = {"/user/register",
+    private static final String[] REG_ENDPOINTS = {
+            "/user/register",
             "/airline/register"
     };
     private static final String[] PUBLIC_URLS = {

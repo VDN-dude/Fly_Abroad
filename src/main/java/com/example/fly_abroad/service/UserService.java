@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 @Transactional
@@ -25,9 +27,12 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private final Logger log = Logger.getLogger(UserService.class.getName());
+
     public boolean save(RegUserDto regUserDto) {
 
         if (userRepository.existsUserByEmailOrPhone(regUserDto.getEmail(), regUserDto.getPhone())) {
+            log.log(Level.INFO, "User already exist");
             return false;
         }
 
@@ -35,16 +40,8 @@ public class UserService implements UserDetailsService {
         user.setRole(Set.of(UserRole.USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        log.log(Level.INFO, "User just saved");
         return true;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> byEmail = userRepository.findByEmail(email);
-        if (byEmail.isPresent()) {
-            return byEmail.get();
-        }
-        throw new UsernameNotFoundException("User not found");
     }
 
     public Optional<PageableBookedTicket> paginatedBookedTicket(User user, int page, int size){
@@ -75,5 +72,14 @@ public class UserService implements UserDetailsService {
                     .build());
         }
         return Optional.empty();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<User> byEmail = userRepository.findByEmail(email);
+        if (byEmail.isPresent()) {
+            return byEmail.get();
+        }
+        throw new UsernameNotFoundException("User not found");
     }
 }

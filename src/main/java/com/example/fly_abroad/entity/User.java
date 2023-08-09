@@ -16,7 +16,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "FA_user")
 @Builder
-@ToString
 public class User implements UserDetails {
 
     @Id

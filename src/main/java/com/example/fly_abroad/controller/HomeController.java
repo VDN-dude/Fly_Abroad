@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -63,16 +64,17 @@ public class HomeController {
 
     @GetMapping("/book-ticket")
     public String bookTicket(@RequestParam Long id,
+                             HttpServletResponse response,
                              Model model) {
 
         Optional<Flight> byId = flightService.findById(id);
         if (byId.isPresent()){
-
             BookTicketDto bookTicketDto = new BookTicketDto();
             bookTicketDto.setFlightId(id);
             model.addAttribute("bookTickets", bookTicketDto);
             model.addAttribute("flight", byId.get());
-            return "book-ticket";
+        } else {
+            response.setStatus(404);
         }
         return "book-ticket";
     }
@@ -83,7 +85,6 @@ public class HomeController {
                              RedirectAttributes redirectAttributes) {
 
         if (flightService.bookTicket(bookTicketDto, user)) {
-
             return "redirect:/";
         } else {
             redirectAttributes.addFlashAttribute("bookTicketError", "You have booked more tickets than it is possible");

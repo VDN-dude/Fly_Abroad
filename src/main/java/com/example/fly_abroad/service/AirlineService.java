@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 @Transactional
@@ -22,15 +24,19 @@ public class AirlineService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private final Logger log = Logger.getLogger(AirlineService.class.getName());
+
     public boolean save(RegAirlineDto regAirlineDto) {
 
         if (airlineRepository.existsAirlineByNameOrPhone(regAirlineDto.getCompanyName(), regAirlineDto.getOfficePhone())) {
+            log.log(Level.INFO, "Airline already exist");
             return false;
         }
 
         Airline airline = RegAirlineDtoMapper.regAirlineDtoToAirline(regAirlineDto);
         airline.getAdministrator().setPassword(passwordEncoder.encode(regAirlineDto.getPassword()));
         airlineRepository.save(airline);
+        log.log(Level.INFO, "Airline " + airline.getName() + " has just saved");
         return true;
     }
 
@@ -52,8 +58,10 @@ public class AirlineService {
                 case "address" -> airline.setOfficeAddress(airlineUpdate.getOfficeAddress());
             }
             airlineRepository.save(airline);
+            log.log(Level.INFO, "Airline with id: " + id + " , has just updated");
             return true;
         }
+        log.log(Level.INFO, "Airline with id: " + id + " , is not exist");
         return false;
     }
 }

@@ -1,7 +1,6 @@
 package com.example.fly_abroad.repository;
 
 import com.example.fly_abroad.entity.Flight;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 

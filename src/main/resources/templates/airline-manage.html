@@ -10,7 +10,8 @@
 <div th:insert="header :: header"></div>
 <div class="container mt-3 mb-3">
     <div class="row justify-content-center">
-        <div class="col-8 border border overflow-y-scroll" style="background-color: lavender; height: 800px;">
+        <p th:if="${findAirlineError != null}" th:text="${findAirlineError}" class="col alert alert-danger" role="alert"></p>
+        <div th:if="${airline != null}" class="col-8 border border overflow-y-scroll" style="background-color: lavender; height: 800px;">
             <div class="row mt-3 border-bottom border-dark">
                 <div class="col text-start">
                     <h5 th:text="${airline.name}"></h5>

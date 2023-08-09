@@ -43,7 +43,7 @@ public class AirlineController {
         if (bindingResult.hasErrors()) return "airline-register";
 
         if (airlineService.save(regAirlineDto)) {
-            return "redirect:/";
+            return "redirect:/airline/manage";
         } else {
             model.addAttribute("regError", "Airline with this name already exist!");
             return "airline-register";
@@ -59,7 +59,7 @@ public class AirlineController {
         if (byUser.isPresent()) {
             model.addAttribute("airline", byUser.get());
         } else {
-            model.addAttribute("error", "error");
+            model.addAttribute("findAirlineError", "Something went wrong, please try again");
         }
         return "airline-manage";
     }
@@ -67,13 +67,14 @@ public class AirlineController {
     @GetMapping("/manage/edit-info")
     public String editInfo(@RequestParam String paramName,
                            @AuthenticationPrincipal User user,
-                           Model model) {;
+                           Model model) {
+
         Optional<Airline> byUser = airlineService.findByUser(user);
         if (byUser.isPresent()) {
             model.addAttribute("paramName", paramName);
             model.addAttribute("airline", byUser.get());
         } else {
-            model.addAttribute("error", "error");
+            model.addAttribute("airlineError", "Something went wrong, please try again");
         }
         return "airline-edit-info";
     }
@@ -87,7 +88,7 @@ public class AirlineController {
         if (airlineService.updateInfo(id, paramName, airline)) {
             return "redirect:/airline/manage";
         }
-        model.addAttribute("error", "error");
+        model.addAttribute("airlineError", "Something went wrong, please try again");
         return "airline-edit-info";
     }
 
@@ -104,7 +105,8 @@ public class AirlineController {
             return "airline-manage-flights";
         }
 
-        return "redirect:error";
+        model.addAttribute("airlineError", "Something went wrong, please try again");
+        return "airline-manage-flights";
     }
 
     @GetMapping("/manage/flights/create-flight")
@@ -124,7 +126,6 @@ public class AirlineController {
         if (flightService.save(createFlightDto, user)) {
             return "redirect:/airline/manage/flights";
         } else {
-
             model.addAttribute("createFlightError", "This flight cannot be created, because this route is busy at the time");
             return "airline-manage-flights-create";
         }

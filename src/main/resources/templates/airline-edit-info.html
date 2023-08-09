@@ -9,7 +9,8 @@
 <body>
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-8 rounded-4" style="background-color: lightskyblue">
+        <p th:if="${airlineError != null}" th:text="${airlineError}" class="col alert alert-danger" role="alert"></p>
+        <div th:if="${airline != null}" class="col-8 rounded-4" style="background-color: lightskyblue">
             <form th:action="@{/airline/manage/edit-info}" method="post" th:object="${airline}">
 
                 <input type="hidden" name="id" th:value="${airline.id}" class="form-control">

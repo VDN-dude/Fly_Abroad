@@ -7,7 +7,6 @@ import com.example.fly_abroad.entity.*;
 import com.example.fly_abroad.mapper.CreateFlightDtoMapper;
 import com.example.fly_abroad.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -18,6 +17,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 @Transactional
@@ -32,6 +33,8 @@ public class FlightService {
     private TicketRepository ticketRepository;
     @Autowired
     private UserRepository userRepository;
+
+    private final Logger log = Logger.getLogger(FlightService.class.getName());
 
     public boolean save(CreateFlightDto createFlightDto, User user) {
 
@@ -53,9 +56,11 @@ public class FlightService {
                 airline.setFlights(flights);
 
                 airlineRepository.save(airline);
+                log.log(Level.INFO, "Flight has just saved : " + flight);
                 return true;
             }
         }
+        log.log(Level.INFO, "This Flight already exist");
         return false;
     }
 
@@ -74,6 +79,7 @@ public class FlightService {
 
     public void update(Flight flight) {
         flightRepository.save(flight);
+        log.log(Level.INFO, "Flight with id: " + flight.getId() + " , has just updated");
     }
 
     @Transactional(readOnly = true)

@@ -3,7 +3,6 @@ package com.example.fly_abroad.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Entity
@@ -13,7 +12,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "FA_airline")
 @Builder
-@ToString
 public class Airline {
 
     @Id

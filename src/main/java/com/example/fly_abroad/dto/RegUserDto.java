@@ -35,7 +35,7 @@ public class RegUserDto {
     @Pattern(regexp = "^[A-Za-z\\d]+\\-?[A-Za-z\\d]*", message = "This State is incorrect")
     private String state;
 
-    @Pattern(regexp = "^\\d+[\\-\\d]+[A-Za-z]?[\\-\\d]*[A-Za-z]?", message = "This Building is incorrect")
+    @Pattern(regexp = "^\\d*[\\-\\d]+[A-Za-z]?[\\-\\d]*[A-Za-z]?", message = "This Building is incorrect")
     private String building;
 
     @Pattern(regexp = "^\\d+?[\\-\\d]{4,9}", message = "This zip is incorrect")

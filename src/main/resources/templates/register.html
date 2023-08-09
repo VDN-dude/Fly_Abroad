@@ -35,17 +35,17 @@
                     <div class="col-md-4">
                         <label for="inputCountry" class="form-label">Country</label>
                         <input type="text" th:field="*{country}" class="form-control" id="inputCountry">
-                        <p th:if="${#fields.hasErrors('address')}" th:errors="*{country}" class="alert alert-danger" role="alert"></p>
+                        <p th:if="${#fields.hasErrors('country')}" th:errors="*{country}" class="alert alert-danger" role="alert"></p>
                     </div>
                     <div class="col-md-4">
                         <label for="inputState" class="form-label">State</label>
                         <input type="text" th:field="*{state}" class="form-control" id="inputState">
-                        <p th:if="${#fields.hasErrors('address')}" th:errors="*{state}" class="alert alert-danger" role="alert"></p>
+                        <p th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="alert alert-danger" role="alert"></p>
                     </div>
                     <div class="col-md-4">
                         <label for="inputCity" class="form-label">City</label>
                         <input type="text" th:field="*{city}" class="form-control" id="inputCity">
-                        <p th:if="${#fields.hasErrors('address')}" th:errors="*{city}" class="alert alert-danger" role="alert"></p>
+                        <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="alert alert-danger" role="alert"></p>
                     </div>
                 </div>
 
@@ -53,17 +53,17 @@
                     <div class="col-md-5">
                         <label for="inputStreet" class="form-label">Street</label>
                         <input type="text" th:field="*{street}" class="form-control" id="inputStreet">
-                        <p th:if="${#fields.hasErrors('address')}" th:errors="*{street}" class="alert alert-danger" role="alert"></p>
+                        <p th:if="${#fields.hasErrors('street')}" th:errors="*{street}" class="alert alert-danger" role="alert"></p>
                     </div>
                     <div class="col-md-5">
                         <label for="inputBuilding" class="form-label">Building</label>
                         <input type="text" th:field="*{building}" class="form-control" id="inputBuilding">
-                        <p th:if="${#fields.hasErrors('address')}" th:errors="*{building}" class="alert alert-danger" role="alert"></p>
+                        <p th:if="${#fields.hasErrors('building')}" th:errors="*{building}" class="alert alert-danger" role="alert"></p>
                     </div>
                     <div class="col-md-2">
                         <label for="inputZip" class="form-label">Zip</label>
                         <input type="text" th:field="*{zip}" class="form-control" id="inputZip">
-                        <p th:if="${#fields.hasErrors('address')}" th:errors="*{zip}" class="alert alert-danger" role="alert"></p>
+                        <p th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}" class="alert alert-danger" role="alert"></p>
                     </div>
                 </div>
 
@@ -90,7 +90,7 @@
                 </a>
             </div>
 
-            <p th:if="${regError != null}" th:text="${regError}"></p>
+            <p th:if="${regError != null}" th:text="${regError}" class="alert alert-danger" role="alert"></p>
         </div>
     </div>
 </div>

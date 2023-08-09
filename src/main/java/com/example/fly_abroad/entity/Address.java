@@ -11,7 +11,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "FA_address")
 @Builder
-@ToString
 public class Address {
 
     @Id
