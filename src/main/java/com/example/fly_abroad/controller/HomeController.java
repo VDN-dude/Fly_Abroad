@@ -57,7 +57,7 @@ public class HomeController {
 
         if (bindingResult.hasErrors()) return "flight-search";
 
-        PageableFlights pageableFlights = flightService.findByParams(searchFlightDto, page, size);
+        PageableFlights pageableFlights = flightService.findAllByParams(searchFlightDto, page, size);
         model.addAttribute("pageableFlights", pageableFlights);
         return "flight-search";
     }

@@ -36,9 +36,9 @@ public class FlightService {
 
     private final Logger log = Logger.getLogger(FlightService.class.getName());
 
-    public boolean save(CreateFlightDto createFlightDto, User user) {
+    public boolean save(CreateFlightDto createFlightDto, String username) {
 
-        Optional<Airline> byAdministrator = airlineRepository.findByAdministrator(user);
+        Optional<Airline> byAdministrator = airlineRepository.findByAdministrator_Username(username);
 
         if (byAdministrator.isPresent()) {
 
@@ -65,7 +65,7 @@ public class FlightService {
     }
 
     @Transactional(readOnly = true)
-    public PageableFlights findByAirlineName(String airlineName, int page, int size) {
+    public PageableFlights findAllByAirlineName(String airlineName, int page, int size) {
 
         List<Flight> flights = flightRepository.findAllByAirline_Name(airlineName, PageRequest.of(page, size));
         Long countFlights = flightRepository.countAllByAirline_Name(airlineName);
@@ -77,13 +77,13 @@ public class FlightService {
         return flightRepository.findById(id);
     }
 
-    public void update(Flight flight) {
-        flightRepository.save(flight);
+    public Flight update(Flight flight) {
         log.log(Level.INFO, "Flight with id: " + flight.getId() + " , has just updated");
+        return flightRepository.save(flight);
     }
 
     @Transactional(readOnly = true)
-    public PageableFlights findByParams(SearchFlightDto searchFlightDto, int page, int size) {
+    public PageableFlights findAllByParams(SearchFlightDto searchFlightDto, int page, int size) {
 
         LocalDateTime localDateTime = LocalDateTime.parse(searchFlightDto.getDepartureDay() + "T00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         List<Flight> flights = flightRepository.findAllByFrom_Address_CityAndTo_Address_CityAndDepartureAfterAndDepartureBeforeAndUnbookedTicketsQuantityIsGreaterThanEqual(

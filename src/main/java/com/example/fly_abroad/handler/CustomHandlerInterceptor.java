@@ -1,6 +1,5 @@
 package com.example.fly_abroad.handler;
 
-import com.example.fly_abroad.service.FlightService;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +14,7 @@ import java.util.logging.Logger;
 @Component
 public class CustomHandlerInterceptor implements HandlerInterceptor {
 
-    private final Logger log = Logger.getLogger(FlightService.class.getName());
+    private final Logger log = Logger.getLogger(CustomHandlerInterceptor.class.getName());
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

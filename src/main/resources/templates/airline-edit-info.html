@@ -13,34 +13,88 @@
         <div th:if="${airline != null}" class="col-8 rounded-4" style="background-color: lightskyblue">
             <form th:action="@{/airline/manage/edit-info}" method="post" th:object="${airline}">
 
-                <input type="hidden" name="id" th:value="${airline.id}" class="form-control">
-                <input type="hidden" name="paramName" th:value="${paramName}" class="form-control">
+                <input type="hidden" th:field="*{id}" class="form-control">
 
                 <div th:if="${paramName.equals('name')}" class="mb-3">
                     <label for="Name" class="form-label" th:text="${paramName.toUpperCase()}"></label>
                     <input type="text" th:field="*{name}" th:value="*{name}" class="form-control" id="Name" required>
+                    <input type="hidden" th:field="*{phone}" class="form-control">
+                    <input type="hidden" th:field="*{description}" class="form-control">
+                    <input type="hidden" th:field="*{baggageInfo}" class="form-control">
+                    <input type="hidden" th:field="*{childInfo}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.id}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.country}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.state}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.city}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.street}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.building}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.zip}" class="form-control">
                 </div>
                 <div th:if="${paramName.equals('phone')}" class="mb-3">
                     <label for="Phone" class="form-label" th:text="${paramName}"></label>
                     <input type="text" th:field="*{phone}" th:value="*{phone}" class="form-control" id="Phone" required>
+                    <input type="hidden" th:field="*{name}" class="form-control">
+                    <input type="hidden" th:field="*{description}" class="form-control">
+                    <input type="hidden" th:field="*{baggageInfo}" class="form-control">
+                    <input type="hidden" th:field="*{childInfo}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.id}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.country}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.state}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.city}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.street}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.building}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.zip}" class="form-control">
                 </div>
                 <div th:if="${paramName.equals('description')}" class="mb-3">
                     <label for="Description" class="form-label" th:text="${paramName.toUpperCase()}"></label>
                     <textarea type="text" th:field="*{description}" th:value="*{description}" class="form-control"
                               id="Description" wrap="soft" maxlength="5000" rows="10" required>
                     </textarea>
+                    <input type="hidden" th:field="*{name}" class="form-control">
+                    <input type="hidden" th:field="*{phone}" class="form-control">
+                    <input type="hidden" th:field="*{baggageInfo}" class="form-control">
+                    <input type="hidden" th:field="*{childInfo}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.id}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.country}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.state}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.city}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.street}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.building}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.zip}" class="form-control">
                 </div>
                 <div th:if="${paramName.equals('baggageInfo')}" class="mb-3 mt-3">
                     <label for="BaggageInfo" class="form-label" th:text="${paramName.toUpperCase()}"></label>
                     <textarea type="text" th:field="*{baggageInfo}" th:value="*{baggageInfo}" class="form-control"
                               id="BaggageInfo" wrap="soft" maxlength="5000" rows="30" required>
                     </textarea>
+                    <input type="hidden" th:field="*{name}" class="form-control">
+                    <input type="hidden" th:field="*{phone}" class="form-control">
+                    <input type="hidden" th:field="*{description}" class="form-control">
+                    <input type="hidden" th:field="*{childInfo}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.id}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.country}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.state}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.city}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.street}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.building}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.zip}" class="form-control">
                 </div>
                 <div th:if="${paramName.equals('childInfo')}" class="mb-3">
                     <label for="ChildInfo" class="form-label" th:text="${paramName.toUpperCase()}"></label>
                     <textarea type="text" th:field="*{childInfo}" th:value="*{childInfo}" class="form-control"
                               id="ChildInfo" wrap="soft" maxlength="5000" rows="30" required>
                     </textarea>
+                    <input type="hidden" th:field="*{name}" class="form-control">
+                    <input type="hidden" th:field="*{phone}" class="form-control">
+                    <input type="hidden" th:field="*{description}" class="form-control">
+                    <input type="hidden" th:field="*{baggageInfo}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.id}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.country}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.state}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.city}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.street}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.building}" class="form-control">
+                    <input type="hidden" th:field="*{officeAddress.zip}" class="form-control">
                 </div>
                 <div th:if="${paramName.equals('address')}" class="mb-3">
                     <div class="row g-3 mb-3">
@@ -77,6 +131,11 @@
                                    class="form-control" id="inputZip">
                         </div>
                     </div>
+                    <input type="hidden" th:field="*{name}" class="form-control">
+                    <input type="hidden" th:field="*{phone}" class="form-control">
+                    <input type="hidden" th:field="*{description}" class="form-control">
+                    <input type="hidden" th:field="*{baggageInfo}" class="form-control">
+                    <input type="hidden" th:field="*{childInfo}" class="form-control">
                 </div>
                 <div class="col text-center mb-3">
                     <button class="btn btn-dark align-self-center" type="submit">Update</button>

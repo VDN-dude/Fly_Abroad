@@ -54,7 +54,7 @@ public class AirlineController {
     public String manage(@AuthenticationPrincipal User user,
                          Model model) {
 
-        Optional<Airline> byUser = airlineService.findByUser(user);
+        Optional<Airline> byUser = airlineService.findByAdminUsername(user.getUsername());
 
         if (byUser.isPresent()) {
             model.addAttribute("airline", byUser.get());
@@ -69,7 +69,7 @@ public class AirlineController {
                            @AuthenticationPrincipal User user,
                            Model model) {
 
-        Optional<Airline> byUser = airlineService.findByUser(user);
+        Optional<Airline> byUser = airlineService.findByAdminUsername(user.getUsername());
         if (byUser.isPresent()) {
             model.addAttribute("paramName", paramName);
             model.addAttribute("airline", byUser.get());
@@ -81,11 +81,9 @@ public class AirlineController {
 
     @PostMapping("/manage/edit-info")
     public String editInfo(@ModelAttribute("airline") Airline airline,
-                           @RequestParam String paramName,
-                           @RequestParam Long id,
                            Model model) {
 
-        if (airlineService.updateInfo(id, paramName, airline)) {
+        if (airlineService.updateInfo(airline).isPresent()) {
             return "redirect:/airline/manage";
         }
         model.addAttribute("airlineError", "Something went wrong, please try again");
@@ -98,9 +96,9 @@ public class AirlineController {
                           @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size,
                           Model model){
 
-        Optional<Airline> byUser = airlineService.findByUser(user);
+        Optional<Airline> byUser = airlineService.findByAdminUsername(user.getUsername());
         if (byUser.isPresent()){
-            PageableFlights pageableFlights = flightService.findByAirlineName(byUser.get().getName(), page-1, size);
+            PageableFlights pageableFlights = flightService.findAllByAirlineName(byUser.get().getName(), page-1, size);
             model.addAttribute("pageableFlights", pageableFlights);
             return "airline-manage-flights";
         }
@@ -123,7 +121,7 @@ public class AirlineController {
 
         if (bindingResult.hasErrors()) return "airline-manage-flights-create";
 
-        if (flightService.save(createFlightDto, user)) {
+        if (flightService.save(createFlightDto, user.getUsername())) {
             return "redirect:/airline/manage/flights";
         } else {
             model.addAttribute("createFlightError", "This flight cannot be created, because this route is busy at the time");

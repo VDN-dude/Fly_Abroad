@@ -46,11 +46,8 @@ public class UserService implements UserDetailsService {
 
     public Optional<PageableBookedTicket> paginatedBookedTicket(User user, int page, int size){
         if(!user.getBookedTickets().isEmpty()) {
-            int offset;
-
-            if (page == 1) {
-                offset = 0;
-            } else {
+            int offset = 0;
+            if (page != 1) {
                 offset = ((page - 1) * size);
             }
 
@@ -58,8 +55,10 @@ public class UserService implements UserDetailsService {
             List<BookedTicket> subBookedTickets;
             long countOfPages = (long) Math.ceil((double) bookedTickets.size() / size);
 
-            if (page == countOfPages) {
+            if (page == countOfPages && bookedTickets.size() > 1) {
                 subBookedTickets = user.getBookedTickets().subList(offset, bookedTickets.size() - 1);
+            } else if (page == countOfPages && bookedTickets.size() == 1){
+                subBookedTickets = user.getBookedTickets().subList(offset, bookedTickets.size());
             } else {
                 subBookedTickets = user.getBookedTickets().subList(offset, offset + size);
             }
