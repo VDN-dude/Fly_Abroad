@@ -4,8 +4,11 @@ import com.example.fly_abroad.dto.RegUserDto;
 import com.example.fly_abroad.entity.Address;
 import com.example.fly_abroad.entity.User;
 import com.example.fly_abroad.entity.UserRole;
+import org.hibernate.type.CurrencyType;
 
 import java.util.Arrays;
+import java.util.Currency;
+import java.util.Locale;
 import java.util.Set;
 
 public class RegUserDtoMapper {

@@ -81,8 +81,10 @@ public class AirlineController {
 
     @PostMapping("/manage/edit-info")
     public String editInfo(@ModelAttribute("airline") Airline airline,
+                           @AuthenticationPrincipal User user,
                            Model model) {
 
+        airline.setAdministrator(user);
         if (airlineService.updateInfo(airline).isPresent()) {
             return "redirect:/airline/manage";
         }
@@ -98,7 +100,7 @@ public class AirlineController {
 
         Optional<Airline> byUser = airlineService.findByAdminUsername(user.getUsername());
         if (byUser.isPresent()){
-            PageableFlights pageableFlights = flightService.findAllByAirlineName(byUser.get().getName(), page-1, size);
+            PageableFlights pageableFlights = flightService.findAllByAirlineName(byUser.get().getName(), page, size);
             model.addAttribute("pageableFlights", pageableFlights);
             return "airline-manage-flights";
         }

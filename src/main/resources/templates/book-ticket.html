@@ -29,7 +29,7 @@
                 <div th:each="ticket : ${flight.tickets}" class="col">
                     <p th:text="${ticket.ticketClass}"></p>
                     <p th:text="${'Remaining tickets : ' + ticket.unbookedQuantity}"></p>
-                    <p th:text="${ticket.price}"></p>
+                    <p th:text="${ticket.price + ' ' + ticket.currency.getSymbol()}"></p>
                 </div>
             </div>
             <form method="post" th:action="@{/book-ticket(id = ${flight.id})}" th:object="${bookTickets}">

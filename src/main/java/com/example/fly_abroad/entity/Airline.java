@@ -32,9 +32,12 @@ public class Airline {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Flight> flights;
 
+    @Column(length = 2000)
     private String description;
 
+    @Column(length = 4000)
     private String baggageInfo;
 
+    @Column(length = 4000)
     private String childInfo;
 }

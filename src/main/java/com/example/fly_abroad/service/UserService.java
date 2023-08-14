@@ -44,6 +44,7 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
+    @Transactional(readOnly = true)
     public Optional<PageableBookedTicket> paginatedBookedTicket(User user, int page, int size){
         if(!user.getBookedTickets().isEmpty()) {
             int offset = 0;

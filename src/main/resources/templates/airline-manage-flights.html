@@ -13,7 +13,8 @@
         <div class="col-8 border border overflow-y-scroll" style="background-color: lavender; height: 800px;">
             <div class="row justify-content-center mt-2">
                 <a class="col-2" th:href="@{/airline/manage/flights/create-flight}" style="text-decoration: none">
-                    <input type="submit" class="border-0 rounded-3" th:value="'Create flight'" style="background-color: lightskyblue">
+                    <input type="submit" class="border-0 rounded-3" th:value="'Create flight'"
+                           style="background-color: lightskyblue">
                 </a>
             </div>
             <div th:each="flight : ${pageableFlights.flights}" class="row mt-3 border-bottom border-dark">
@@ -27,8 +28,10 @@
                     <p th:text="${'Duration : ' + flight.duration.toMinutes() + 'm.'}"></p>
                 </div>
                 <div class="col-md-1 text-end align-self-center">
-                    <a th:href="@{/airline/manage/flights/edit-flight(id = ${flight.id})}" style="text-decoration: none">
-                        <input type="submit" class="border-0 rounded-2" th:value="'Edit'" style="background-color: pink">
+                    <a th:href="@{/airline/manage/flights/edit-flight(id = ${flight.id})}"
+                       style="text-decoration: none">
+                        <input type="submit" class="border-0 rounded-2" th:value="'Edit'"
+                               style="background-color: pink">
                     </a>
                 </div>
             </div>
@@ -53,7 +56,8 @@
                 </th:block>
                 <th:block>
                     <li th:if="${pageableFlights.page == 1}" class="page-item disable">
-                        <a class="page-link disabled" th:href="@{/airline/manage/flights(page = ${pageableFlights.page - 1})}"
+                        <a class="page-link disabled"
+                           th:href="@{/airline/manage/flights(page = ${pageableFlights.page - 1})}"
                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
@@ -71,18 +75,18 @@
                                 data-bs-toggle="dropdown" aria-expanded="false" th:text="${pageableFlights.page}">
                         </button>
                         <ul class="dropdown-menu">
-                            <th:block th:each="pageNumber : ${pageableFlights.countOfPages.toString().toCharArray()}">
-                                <li><a class="dropdown-item"
-                                       th:href="@{/airline/manage/flights(page = ${pageNumber})}"
-                                       th:text="${pageNumber}"></a>
-                                </li>
-                            </th:block>
+                            <li th:each="pageNumber : ${#numbers.sequence(1 ,pageableFlights.countOfPages)}">
+                                <a class="dropdown-item"
+                                   th:href="@{/airline/manage/flights(page = ${pageNumber})}"
+                                   th:text="${pageNumber}"></a>
+                            </li>
                         </ul>
                     </div>
                 </th:block>
                 <th:block>
                     <li th:if="${pageableFlights.page == pageableFlights.countOfPages}" class="page-item">
-                        <a class="page-link disabled" th:href="@{/airline/manage/flights(page = ${pageableFlights.page + 1})}"
+                        <a class="page-link disabled"
+                           th:href="@{/airline/manage/flights(page = ${pageableFlights.page + 1})}"
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
@@ -96,13 +100,15 @@
                 </th:block>
                 <th:block>
                     <li th:if="${pageableFlights.page == pageableFlights.countOfPages}" class="page-item">
-                        <a class="page-link disabled" th:href="@{/airline/manage/flights(page = ${pageableFlights.countOfPages})}"
+                        <a class="page-link disabled"
+                           th:href="@{/airline/manage/flights(page = ${pageableFlights.countOfPages})}"
                            aria-label="Last">
                             <span aria-hidden="true">Last</span>
                         </a>
                     </li>
                     <li th:unless="${pageableFlights.page == pageableFlights.countOfPages}" class="page-item">
-                        <a class="page-link" th:href="@{/airline/manage/flights(page = ${pageableFlights.countOfPages})}"
+                        <a class="page-link"
+                           th:href="@{/airline/manage/flights(page = ${pageableFlights.countOfPages})}"
                            aria-label="Last">
                             <span aria-hidden="true">Last</span>
                         </a>

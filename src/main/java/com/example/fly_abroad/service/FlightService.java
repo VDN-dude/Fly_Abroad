@@ -67,7 +67,7 @@ public class FlightService {
     @Transactional(readOnly = true)
     public PageableFlights findAllByAirlineName(String airlineName, int page, int size) {
 
-        List<Flight> flights = flightRepository.findAllByAirline_Name(airlineName, PageRequest.of(page, size));
+        List<Flight> flights = flightRepository.findAllByAirline_Name(airlineName, PageRequest.of(page - 1, size));
         Long countFlights = flightRepository.countAllByAirline_Name(airlineName);
         return createPageableFlight(flights, size, page, countFlights);
     }
@@ -128,6 +128,7 @@ public class FlightService {
         return false;
     }
 
+    @Transactional(readOnly = true)
     public PageableFlights findAllByTo(String city, int page, int size){
         List<Flight> flights = flightRepository.findAllByTo_Address_City(city, PageRequest.of(page - 1, size, Sort.by("departure").ascending()));
         Long countFlights = flightRepository.countAllByTo_Address_City(city);

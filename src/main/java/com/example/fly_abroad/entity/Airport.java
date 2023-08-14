@@ -23,5 +23,6 @@ public class Airport {
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
+    @Column(length = 2000)
     private String description;
 }

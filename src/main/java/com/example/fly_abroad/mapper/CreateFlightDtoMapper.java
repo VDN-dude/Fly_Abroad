@@ -10,7 +10,9 @@ import com.example.fly_abroad.entity.Ticket;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 public class CreateFlightDtoMapper {
 
@@ -52,6 +54,7 @@ public class CreateFlightDtoMapper {
             Ticket ticket = Ticket.builder()
                     .ticketClass(createTicketDto.getTicketClass())
                     .price(createTicketDto.getPrice())
+                    .currency(Currency.getInstance(Locale.getDefault()))
                     .totalQuantity(createTicketDto.getQuantity())
                     .bookedQuantity(0)
                     .unbookedQuantity(createTicketDto.getQuantity())

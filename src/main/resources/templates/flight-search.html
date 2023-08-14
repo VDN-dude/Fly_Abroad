@@ -14,17 +14,20 @@
             <div class="row mt-1 mb-3 g-3">
                 <div class="col">
                     <input type="text" th:field="*{fromCity}" class="form-control" placeholder="From">
-                    <p th:if="${#fields.hasErrors('fromCity')}" th:errors="*{fromCity}" class="alert alert-danger" role="alert"></p>
+                    <p th:if="${#fields.hasErrors('fromCity')}" th:errors="*{fromCity}" class="alert alert-danger"
+                       role="alert"></p>
                 </div>
                 <div class="col">
                     <input type="text" th:field="*{toCity}" class="form-control" placeholder="To">
-                    <p th:if="${#fields.hasErrors('toCity')}" th:errors="*{toCity}" class="alert alert-danger" role="alert"></p>
+                    <p th:if="${#fields.hasErrors('toCity')}" th:errors="*{toCity}" class="alert alert-danger"
+                       role="alert"></p>
                 </div>
                 <div class="col">
                     <input type="date" th:field="*{departureDay}" class="form-control" placeholder="Departure day">
                 </div>
                 <div class="col">
-                    <input type="number" th:field="*{ticketQuantity}" th:min="1" class="form-control" placeholder="Tickets">
+                    <input type="number" th:field="*{ticketQuantity}" th:min="1" class="form-control"
+                           placeholder="Tickets">
                 </div>
                 <div class="col">
                     <input type="submit" class="form-control border-0" th:value="Search" style="background-color: pink">
@@ -49,7 +52,8 @@
                 </div>
                 <div class="col-md-1 text-end align-self-center">
                     <a th:href="@{/book-ticket(id = ${searchedFlight.id})}" style="text-decoration: none">
-                        <input type="submit" class="border-0 rounded-2" th:value="'Book'" style="background-color: pink">
+                        <input type="submit" class="border-0 rounded-2" th:value="'Book'"
+                               style="background-color: pink">
                     </a>
                 </div>
             </div>
@@ -92,12 +96,11 @@
                                 data-bs-toggle="dropdown" aria-expanded="false" th:text="${pageableFlights.page}">
                         </button>
                         <ul class="dropdown-menu">
-                            <th:block th:each="pageNumber : ${pageableFlights.countOfPages.toString().toCharArray()}">
-                                <li><a class="dropdown-item"
-                                       th:href="@{/search(page = ${pageNumber})}"
-                                       th:text="${pageNumber}"></a>
-                                </li>
-                            </th:block>
+                            <li th:each="pageNumber : ${#numbers.sequence(1 ,pageableFlights.countOfPages)}">
+                                <a class="dropdown-item"
+                                   th:href="@{/search(page = ${pageNumber})}"
+                                   th:text="${pageNumber}"></a>
+                            </li>
                         </ul>
                     </div>
                 </th:block>

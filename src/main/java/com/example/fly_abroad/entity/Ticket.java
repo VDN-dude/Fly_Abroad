@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Currency;
 
 @Entity
 @Getter
@@ -25,6 +26,8 @@ public class Ticket {
     private TicketClass ticketClass;
 
     private BigDecimal price;
+
+    private Currency currency;
 
     private int totalQuantity;
 

@@ -1,11 +1,13 @@
 package com.example.fly_abroad.entity;
 
 import lombok.*;
+import org.hibernate.type.CurrencyType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Currency;
 import java.util.List;
 import java.util.Set;
 

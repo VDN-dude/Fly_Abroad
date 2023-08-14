@@ -30,6 +30,14 @@
                         </ul>
                     </div>
                     <div class="dropdown">
+                        <button class="btn border-0" data-bs-toggle="dropdown" aria-expanded="false" data-th-text="#{label.title}">
+                        </button>
+                        <ul class="dropdown-menu text-center">
+                            <li><a class="nav-link" aria-current="page" th:href="@{/(lang=en)}" data-th-text="#{label.en}"></a></li>
+                            <li><a class="nav-link" aria-current="page" th:href="@{/(lang=ru)}" data-th-text="#{label.ru}"></a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
                         <button class="btn border-0" data-bs-toggle="dropdown" aria-expanded="false">
                             Profile
                         </button>
@@ -39,7 +47,8 @@
                             <li sec:authorize="!isAuthenticated()"><a class="nav-link" aria-current="page"
                                                                       th:href="@{/user/register}">Register</a></li>
                             <li sec:authorize="!isAuthenticated()"><a class="nav-link" aria-current="page"
-                                                                      th:href="@{/airline/register}">Register an Airline</a></li>
+                                                                      th:href="@{/airline/register}">Register an
+                                Airline</a></li>
                             <li sec:authorize="isAuthenticated()"><a class="nav-link" aria-current="page"
                                                                      th:href="@{/user/profile}">Profile</a></li>
                             <li sec:authorize="isAuthenticated()">
