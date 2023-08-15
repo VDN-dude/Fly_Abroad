@@ -1,6 +1,6 @@
 package com.example.fly_abroad.config;
 
-import com.example.fly_abroad.handler.CustomHandlerInterceptor;
+import com.example.fly_abroad.handler.ErrorHandlerInterceptor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new CustomHandlerInterceptor());
+        registry.addInterceptor(new ErrorHandlerInterceptor());
         registry.addInterceptor(localeChangeInterceptor());
     }
 

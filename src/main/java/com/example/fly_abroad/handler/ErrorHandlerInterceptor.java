@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.logging.Logger;
 
 @Component
-public class CustomHandlerInterceptor implements HandlerInterceptor {
+public class ErrorHandlerInterceptor implements HandlerInterceptor {
 
-    private final Logger log = Logger.getLogger(CustomHandlerInterceptor.class.getName());
+    private final Logger log = Logger.getLogger(ErrorHandlerInterceptor.class.getName());
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

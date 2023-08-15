@@ -19,11 +19,10 @@ public class SecurityConfig {
     };
     private static final String[] PUBLIC_URLS = {
             "/",
-            "/airline/register"
     };
     private static final String LOGOUT_SUCCESS_URL = "/";
 
-    private static final String AIRLINE_ADMIN_URLS = "/airline/**";
+    private static final String AIRLINE_ADMIN_URLS = "/airline/manage/**";
 
     @SneakyThrows
     @Bean
