@@ -21,7 +21,7 @@ public class Airline {
     @Column(unique = true)
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private User administrator;
 
     @OneToOne(cascade = CascadeType.ALL)

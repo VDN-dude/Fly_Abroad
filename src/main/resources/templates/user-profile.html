@@ -31,7 +31,7 @@
                     <div class="col text-end align-self-center">
                         <p th:text="${'Class : ' + bookedTicket.ticket.ticketClass}"></p>
                         <p th:text="${'Quantity : ' + bookedTicket.quantity}"></p>
-                        <p th:text="${'Price : ' + bookedTicket.ticket.price + ' ' +  bookedTicket.ticket.currency.getSymbol()}"></p>
+                        <p th:text="${'Price : ' + bookedTicket.ticket.price * bookedTicket.quantity + ' ' +  bookedTicket.ticket.currency.getSymbol()}"></p>
                     </div>
                 </div>
             </div>

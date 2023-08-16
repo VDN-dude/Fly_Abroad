@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "FA_flights")
 @Builder
+@ToString
 public class Flight {
 
     @Id
@@ -30,10 +31,10 @@ public class Flight {
 
     private int unbookedTicketsQuantity;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Airport from;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Airport to;
 
     private LocalDateTime departure;

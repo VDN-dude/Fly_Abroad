@@ -13,9 +13,8 @@ public interface AirportRepository extends JpaRepository<Airport, Long> {
     Optional<Airport> findByName(String string);
 
     @Query(
-            value = "SELECT a FROM Flight f JOIN Airport a ON a.id = f.to.id GROUP BY a.id ORDER BY COUNT (f.to) DESC "
+            value = "SELECT a FROM Flight f JOIN Airport a ON a.id = f.to.id GROUP BY a.id ORDER BY COUNT (f.to) DESC"
     )
     List<Airport> findTop5ByPopularity(Pageable pageable);
 
-    List<Airport> findAllByNameLike(String name);
 }

@@ -8,12 +8,12 @@ services:
     ports:
       - "8080:8080"
     environment:
+
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
     depends_on:
       - postgres
 
   postgres:
-    container_name: postgres
     image: postgres:latest
     restart: always
     ports:
@@ -24,12 +24,6 @@ services:
       POSTGRES_PASSWORD: root
     volumes:
       - "pg-data:/var/lib/postgresql/data"
-  #    networks:
-  #      - local
 
 volumes:
   pg-data: { }
-
-  #networks:
-  #  local:
-  #    driver: bridge
